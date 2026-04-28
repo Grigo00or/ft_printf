@@ -1,42 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_print_unsigned.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grgrigor <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/22 17:50:02 by grgrigor          #+#    #+#             */
-/*   Updated: 2026/04/22 17:50:07 by grgrigor         ###   ########.fr       */
+/*   Created: 2026/04/22 17:53:16 by grgrigor          #+#    #+#             */
+/*   Updated: 2026/04/22 17:53:23 by grgrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printf(const char *format, ...)
+int	ft_print_unsigned(unsigned int i)
 {
-	int		count;
-	int		i;
-	va_list	argc;
+	int		len;
+	char	c;
 
-	if (!format)
-		return (-1);
-	va_start(argc, format);
-	count = 0;
-	i = 0;
-	while (format[i] != '\0')
+	len = 0;
+	if (i >= 10)
 	{
-		if (format[i] == '%')
-		{
-			i++;
-			count += ft_dispatcher(format[i], argc);
-		}
-		else
-		{
-			write(1, &format[i], 1);
-			count++;
-		}
-		i++;
+		len += ft_print_unsigned(i / 10);
 	}
-	va_end(argc);
-	return (count);
+	c = (i % 10) + '0';
+	write(1, &c, 1);
+	len++;
+	return (len);
 }

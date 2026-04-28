@@ -1,42 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_print_ptr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grgrigor <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/22 17:50:02 by grgrigor          #+#    #+#             */
-/*   Updated: 2026/04/22 17:50:07 by grgrigor         ###   ########.fr       */
+/*   Created: 2026/04/22 17:51:43 by grgrigor          #+#    #+#             */
+/*   Updated: 2026/04/22 17:51:45 by grgrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printf(const char *format, ...)
+int	ft_print_ptr(void *ptr)
 {
-	int		count;
-	int		i;
-	va_list	argc;
+	int	len;
 
-	if (!format)
-		return (-1);
-	va_start(argc, format);
-	count = 0;
-	i = 0;
-	while (format[i] != '\0')
+	len = 0;
+	if (!ptr)
 	{
-		if (format[i] == '%')
-		{
-			i++;
-			count += ft_dispatcher(format[i], argc);
-		}
-		else
-		{
-			write(1, &format[i], 1);
-			count++;
-		}
-		i++;
+		return (ft_print_str("(nil)"));
 	}
-	va_end(argc);
-	return (count);
+	len += ft_print_str("0x");
+	len += ft_print_hex((unsigned long)ptr, "0123456789abcdef");
+	return (len);
 }

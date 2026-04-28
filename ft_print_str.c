@@ -1,42 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_print_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grgrigor <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/22 17:50:02 by grgrigor          #+#    #+#             */
-/*   Updated: 2026/04/22 17:50:07 by grgrigor         ###   ########.fr       */
+/*   Created: 2026/04/22 17:51:54 by grgrigor          #+#    #+#             */
+/*   Updated: 2026/04/22 17:51:56 by grgrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printf(const char *format, ...)
+int	ft_print_str(char *str)
 {
-	int		count;
-	int		i;
-	va_list	argc;
+	int	len;
 
-	if (!format)
-		return (-1);
-	va_start(argc, format);
-	count = 0;
-	i = 0;
-	while (format[i] != '\0')
+	len = 0;
+	if (!str)
 	{
-		if (format[i] == '%')
-		{
-			i++;
-			count += ft_dispatcher(format[i], argc);
-		}
-		else
-		{
-			write(1, &format[i], 1);
-			count++;
-		}
-		i++;
+		str = "(null)";
 	}
-	va_end(argc);
-	return (count);
+	while (str[len])
+	{
+		write(1, &str[len], 1);
+		len++;
+	}
+	return (len);
 }

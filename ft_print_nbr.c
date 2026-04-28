@@ -1,42 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_print_nbr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grgrigor <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/22 17:50:02 by grgrigor          #+#    #+#             */
-/*   Updated: 2026/04/22 17:50:07 by grgrigor         ###   ########.fr       */
+/*   Created: 2026/04/22 17:50:55 by grgrigor          #+#    #+#             */
+/*   Updated: 2026/04/22 17:50:57 by grgrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printf(const char *format, ...)
+int	ft_print_nbr(int i)
 {
-	int		count;
-	int		i;
-	va_list	argc;
+	int		len;
+	long	num;
 
-	if (!format)
-		return (-1);
-	va_start(argc, format);
-	count = 0;
-	i = 0;
-	while (format[i] != '\0')
+	num = i;
+	len = 0;
+	if (num < 0)
 	{
-		if (format[i] == '%')
-		{
-			i++;
-			count += ft_dispatcher(format[i], argc);
-		}
-		else
-		{
-			write(1, &format[i], 1);
-			count++;
-		}
-		i++;
+		num = -num;
+		len += ft_putchar_count('-');
 	}
-	va_end(argc);
-	return (count);
+	if (num >= 10)
+	{
+		len += ft_print_nbr(num / 10);
+	}
+	len += ft_putchar_count((num % 10) + '0');
+	return (len);
 }
+
+/*int	main(void)
+{
+	ft_print_nbr(123);
+		ft_print_nbr(-2147483648);
+			ft_print_nbr(2147483647);
+				ft_print_nbr('A');
+}
+*/

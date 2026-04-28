@@ -1,42 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_putchar_count.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grgrigor <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/22 17:50:02 by grgrigor          #+#    #+#             */
-/*   Updated: 2026/04/22 17:50:07 by grgrigor         ###   ########.fr       */
+/*   Created: 2026/04/22 17:53:41 by grgrigor          #+#    #+#             */
+/*   Updated: 2026/04/22 17:53:43 by grgrigor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printf(const char *format, ...)
+int	ft_putchar_count(char c)
 {
-	int		count;
-	int		i;
-	va_list	argc;
-
-	if (!format)
-		return (-1);
-	va_start(argc, format);
-	count = 0;
-	i = 0;
-	while (format[i] != '\0')
-	{
-		if (format[i] == '%')
-		{
-			i++;
-			count += ft_dispatcher(format[i], argc);
-		}
-		else
-		{
-			write(1, &format[i], 1);
-			count++;
-		}
-		i++;
-	}
-	va_end(argc);
-	return (count);
+	return (write(1, &c, 1));
 }
